@@ -14,7 +14,16 @@ public class JSONPlaceholderExercise {
         // 3. Set the HTTP method to 'GET'
         // 4. Send the request and get the response
         // 5. Return the response body as string
-        return null;
+        Http http = new Http();
+        
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('GET');
+
+        HttpResponse response = http.send(request);
+        system.debug(response.getbody());
+
+        return response.getbody();
     }
     
     /**
@@ -34,7 +43,17 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        return null;
+
+        String jsonString = '{"userId":userId,"title":title,"body":body}';
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts');
+        request.setMethod('POST');
+        request.setBody(jsonString);
+
+        HttpResponse response = http.send(request);
+         system.debug('Postresp'+response.getbody());
+        return response.getBody();
     }
     
     /**
@@ -55,7 +74,17 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        return null;
+        String jstonString = '{"postId":postId,"title":"This is Updated post","body":"This is updated body","userId":userId}';
+        Http http = new Http();
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('PUT');
+        request.setBody(jstonString);
+
+        HttpResponse response = http.send(request);
+        system.debug('putResp'+response.getbody());
+        return response.getBody();
     }
     
     /**
@@ -74,7 +103,17 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        return null;
+        String jstonString = '{"postId":postId,"title":"This is Updated post2"}';
+        Http http = new Http();
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('PATCH');
+        request.setBody(jstonString);
+
+        HttpResponse response = http.send(request);
+        system.debug('patchResp'+response.getbody());
+        return response.getBody();
     }
     
     /**
@@ -90,6 +129,14 @@ public class JSONPlaceholderExercise {
         // 3. Set the HTTP method to 'DELETE'
         // 4. Send the request and get the response
         // 5. Return the response status code
-        return null;
+         Http http = new Http();
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('DELETE');
+
+        HttpResponse response = http.send(request);
+        system.debug('patchResp'+response.getbody());
+        return response.getStatusCode();
     }
 } 

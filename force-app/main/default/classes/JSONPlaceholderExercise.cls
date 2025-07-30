@@ -14,7 +14,16 @@ public class JSONPlaceholderExercise {
         // 3. Set the HTTP method to 'GET'
         // 4. Send the request and get the response
         // 5. Return the response body as string
-        return null;
+        Http http = new Http();
+        
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('GET');
+
+        HttpResponse response = http.send(request);
+        system.debug(response.getbody());
+
+        return response.getbody();
     }
     
     /**
@@ -34,7 +43,19 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        return null;
+        PostsBody postbody = new PostsBody();
+        postbody.title = title;
+        postbody.body = body;
+        postbody.userId = userId;
+
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts');
+        request.setMethod('POST');
+        request.setBody(Json.Serialize(postbody));
+        HttpResponse response = http.send(request);
+        system.debug('Postresp'+response.getbody());
+        return response.getBody();
     }
     
     /**
@@ -55,7 +76,22 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        return null;
+        PutBody pbody = new PutBody();
+        pbody.postId =postId;
+        pbody.title =title;
+        pbody.body =body;
+        pbody.userId =userId;
+
+        Http http = new Http();
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('PUT');
+        request.setBody(Json.serialize(pbody));
+
+        HttpResponse response = http.send(request);
+        system.debug('putResp'+response.getbody());
+        return response.getBody();
     }
     
     /**
@@ -74,7 +110,20 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        return null;
+        PatchBody pbody = new PatchBody();
+        pbody.postId = postId;
+        pbody.title = title;
+
+        Http http = new Http();
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('PATCH');
+        request.setBody(JSON.serialize(pbody));
+
+        HttpResponse response = http.send(request);
+        system.debug('patchResp'+response.getbody());
+        return response.getBody();
     }
     
     /**
@@ -90,6 +139,14 @@ public class JSONPlaceholderExercise {
         // 3. Set the HTTP method to 'DELETE'
         // 4. Send the request and get the response
         // 5. Return the response status code
-        return null;
+         Http http = new Http();
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL+'/posts/'+postId);
+        request.setMethod('DELETE');
+
+        HttpResponse response = http.send(request);
+        system.debug('patchResp'+response.getbody());
+        return response.getStatusCode();
     }
 } 

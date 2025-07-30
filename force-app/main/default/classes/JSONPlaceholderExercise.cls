@@ -43,16 +43,18 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
+        PostsBody postbody = new PostsBody();
+        postbody.title = title;
+        postbody.body = body;
+        postbody.userId = userId;
 
-        String jsonString = '{"userId":userId,"title":title,"body":body}';
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(BASE_URL+'/posts');
         request.setMethod('POST');
-        request.setBody(jsonString);
-
+        request.setBody(Json.Serialize(postbody));
         HttpResponse response = http.send(request);
-         system.debug('Postresp'+response.getbody());
+        system.debug('Postresp'+response.getbody());
         return response.getBody();
     }
     
@@ -74,13 +76,18 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        String jstonString = '{"postId":postId,"title":"This is Updated post","body":"This is updated body","userId":userId}';
+        PutBody pbody = new PutBody();
+        pbody.postId =postId;
+        pbody.title =title;
+        pbody.body =body;
+        pbody.userId =userId;
+
         Http http = new Http();
 
         HttpRequest request = new HttpRequest();
         request.setEndpoint(BASE_URL+'/posts/'+postId);
         request.setMethod('PUT');
-        request.setBody(jstonString);
+        request.setBody(Json.serialize(pbody));
 
         HttpResponse response = http.send(request);
         system.debug('putResp'+response.getbody());
@@ -103,13 +110,16 @@ public class JSONPlaceholderExercise {
         // 5. Set the request body
         // 6. Send the request and get the response
         // 7. Return the response body as string
-        String jstonString = '{"postId":postId,"title":"This is Updated post2"}';
+        PatchBody pbody = new PatchBody();
+        pbody.postId = postId;
+        pbody.title = title;
+
         Http http = new Http();
 
         HttpRequest request = new HttpRequest();
         request.setEndpoint(BASE_URL+'/posts/'+postId);
         request.setMethod('PATCH');
-        request.setBody(jstonString);
+        request.setBody(JSON.serialize(pbody));
 
         HttpResponse response = http.send(request);
         system.debug('patchResp'+response.getbody());
